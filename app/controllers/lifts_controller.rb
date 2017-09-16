@@ -12,6 +12,21 @@ class LiftsController < ApplicationController
 		end
 	end
 
+	def destroy
+		@lift = Lift.find(params[:id])
+		@lift.destroy
+		head :no_content
+	end
+
+	def update
+		@lift = Lift.find(params[:id])
+		if @lift.update(lift_params)
+			render json: @lift
+		else
+			render jsn: @lift.errors, status: :unprocessable_entity
+		end
+	end
+	
 	private
 	
 	def lift_params
